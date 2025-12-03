@@ -1,21 +1,20 @@
-require("dotenv").config()
-bodyParser = require("body-parser")
-const { GoogleGenerativeAI } = require("@google/generative-ai"); // Ai
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const ai = async()=>{
-  try {
-    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GEMINI_KEY);
-   const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    prompt = "Joke related to Computer science";
-    const result = await model.generateContent(prompt);
+const app = express();
+const PORT = 8080;
 
-    const output = result.response.text();
+app.use(express.json());
+app.use(cors());
 
-    console.log(output);
-  } catch (error) {
-    console.error("Error generating content:", error);
-    res.status(500).send("Something went wrong");
-  }
-}
+app.listen(PORT, () => {
+  console.log(`server Running on ${PORT}`);
+});
 
-ai()
+ app.post("/test", async (req, res ) => {
+ 
+});
+
