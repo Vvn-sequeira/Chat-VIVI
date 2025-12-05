@@ -1,5 +1,8 @@
 import express from "express";
 import Thread from "../Models/Thread.js";
+import { Content } from "openai/resources/containers/files/content.js";
+import { responseByAI } from "../Utils/GenAI.js";
+import mongoose from "mongoose";
 const router = express.Router();
 
 router.post("/test", async (req, res) => {
@@ -45,18 +48,64 @@ router.get("/thread/:id", async (req, res) => {
 });
 
 // Delete the Thread 
-router.delete("/thread/:id" , async(req , res)=> {
-    const {id} = req.params
-     try {
-         const DeletedThread = Thread.findByIdAndDelete(id)
-         if(!DeletedThread){
-            res.status(404).json({err : "THread not found ..."})
-         }
-         res.status(200).json({err: "Successfully Deleted ..."})
-     } catch (error) {
-        console.log(error);
-    res.status(500).json({ error: "Failed to Delete the Thread ..." });
-     }
+router.delete("/thread/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cleanId = typeof id === "string" && id.startsWith(":") ? id.slice(1) : id;
+
+    let deleted = null;
+    if (mongoose.Types.ObjectId.isValid(cleanId)) {
+      deleted = await Thread.findByIdAndDelete(cleanId);
+    } else {
+      deleted = await Thread.findOneAndDelete({ threadId: cleanId });
+    }
+
+    if (!deleted) return res.status(404).json({ err: "Thread not found" });
+    return res.status(200).json({ ok: "Successfully Deleted" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Failed to Delete the Thread" });
+  }
+});
+
+router.post("/chat" , async(req , res )=> {
+   const {threadId , message} = req.body
+   if(!threadId || !message){
+    res.status(500).json({err: "missing required fields"})
+   }
+   try {
+    let threadd = await Thread.findOne({threadId})
+    if(!threadd){
+      //  Create a NEW thread
+        threadd = new Thread({
+        threadId,
+        title: message,
+        messages: [{
+          role: "user",
+          content: message
+        }]
+      })
+    }else{
+      threadd.messages.push({
+        role: "user",
+        content: message
+      })
+    }
+
+    const assistentReply = await responseByAI(message)
+
+    threadd.messages.push({
+      role: "assistent",
+      content: assistentReply
+    })
+    threadd.updatedAt = new Date();
+    await threadd.save()
+
+    res.json({Reply : assistentReply})
+   } catch (error) {
+    console.log(error)
+    res.status(500).json({err : "Something went Wrong!!"})
+   }
 })
 
 export default router;

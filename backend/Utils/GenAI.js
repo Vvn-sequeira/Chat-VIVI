@@ -1,6 +1,6 @@
 import "dotenv/config"
 
-const responseByAI = async(message)=> {
+export const responseByAI = async(message)=> {
      try {
     const model = "gemini-2.0-flash" 
     //  const prompt = "Joke related to Computer science";
@@ -32,4 +32,4 @@ const responseByAI = async(message)=> {
   }
 }
 
-export default responseByAI;
+export default { responseByAI };
