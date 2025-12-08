@@ -1,0 +1,106 @@
+
+.Sidebar{
+    height: 100vh ;
+    background-color: #181818;
+}
+
+.NavSidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+
+
+}
+.NavSidebar a{
+    text-decoration: none ;
+    padding: 12px ;
+    font-size: 14px ;
+
+
+    
+}
+.NavSidebar a:hover{
+    background-color: #ffffff1a;
+    border-radius: 13px ;
+    
+}
+.NavSidebar a i{
+    margin-right: 12px ;
+}
+
+.History{
+    /* border: 2px solid ; */
+    overflow-y: scroll;  
+    flex: 1;
+}
+.History::-webkit-scrollbar {
+  width: 8px;   
+}
+.History::-webkit-scrollbar-track {
+  background: transparent;  
+  border-radius: 4px;
+}
+.History::-webkit-scrollbar-thumb:hover {
+  background: #888; 
+}
+
+.History::-webkit-scrollbar-thumb {
+  background: #555;       
+  border-radius: 4px;
+}
+
+
+
+
+.smallText{
+     margin-left: 12px ;
+}
+
+.HistoryChats{
+    display: flex;
+    flex-direction: column;
+    padding: 4px ;
+    /* height: 498px ; */
+
+
+
+}
+.HistoryChats a{
+    display: flex;
+    justify-content: space-between;
+    padding: 9px ;
+    text-decoration: none ;
+    
+}
+.HistoryChats a:hover{
+     background-color: #ffffff1a;
+    border-radius: 13px ;
+
+}
+.Sidebar{
+    display: flex;
+    flex-direction: column;
+}
+.UserDetails{
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 4px ;
+}
+.UserDetails:hover{
+    background-color: #ffffff1a;
+    border-radius: 13px ;
+}
+
+.user-logo{
+    font-size: 30px ;
+    margin-right:8px ;
+}
+.User-info{
+    display: flex;
+    flex-direction: column;
+}
+.User-info small {
+    opacity: 0.6;
+}
