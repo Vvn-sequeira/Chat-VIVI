@@ -2,6 +2,7 @@
 .Sidebar{
     height: 100vh ;
     background-color: #181818;
+    width: 500px ;
 }
 
 .NavSidebar{

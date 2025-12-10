@@ -1,0 +1,80 @@
+
+.Navbar{
+    display: flex;
+    flex-direction: row;
+    padding: 12px ;
+    justify-content: space-between;
+    
+}
+.Navbar a {
+     text-decoration: none ;
+     font-weight: 600;
+     padding: 9px ;
+
+}
+
+.Navbar a:hover{
+    background-color: #ffffff1a;
+    border-radius: 13px ;
+}
+
+.ChatWindow{
+    width: 100% ;
+}
+.Input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.UserInput{
+    border-radius: 63px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     padding: 13px ;
+     width: 600px ;
+     
+     background-color: #303030;
+
+}
+
+#userPrompt{
+    display: flex;
+    flex: 1;
+    height: 40px ;
+    background-color: transparent;
+    border: none ;
+    padding: 0 12px ;
+
+}
+
+input:focus{
+    outline: none ;
+}
+
+.send{
+    background-color: aliceblue;
+    padding: 12px ;
+    border-radius: 50% ;
+    color: black;
+
+}
+.send:hover{
+    background-color: rgb(0, 0, 0);
+    padding: 12px ;
+    border-radius: 50% ;
+    color: rgb(246, 244, 244);
+    box-shadow: 1px  -1px 20px  white ;
+}
+.button{
+    background-color: transparent;
+    border: none;
+}
+
+.UserNote p{
+    font-size: 12px ;
+}
+.UserNote u{
+    cursor: pointer;
+}
