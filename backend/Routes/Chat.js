@@ -70,8 +70,10 @@ router.delete("/thread/:id", async (req, res) => {
 
 router.post("/chat" , async(req , res )=> {
    const {threadId , message} = req.body
+  //  console.log("ID: " , threadId , "Prompt: ", message)
+
    if(!threadId || !message){
-    res.status(500).json({err: "missing required fields"})
+    return  res.status(500).json({err: "missing required fields"})
    }
    try {
     let threadd = await Thread.findOne({threadId})
@@ -91,11 +93,11 @@ router.post("/chat" , async(req , res )=> {
         content: message
       })
     }
-
     const assistentReply = await responseByAI(message)
-
+    console.log("assistant reply: " , assistentReply);
+    
     threadd.messages.push({
-      role: "assistent",
+      role: "assistant",
       content: assistentReply
     })
     threadd.updatedAt = new Date();
