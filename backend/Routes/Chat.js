@@ -104,9 +104,12 @@ router.post("/chat" , async(req , res )=> {
     await threadd.save()
 
     res.json({Reply : assistentReply})
+    
    } catch (error) {
+
     console.log(error)
     res.status(500).json({err : "Something went Wrong!!"})
+
    }
 })
 

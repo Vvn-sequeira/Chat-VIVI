@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext , useState } from 'react'
 import "./ChatWindo.css"
 import Chat from "./Chat"
-import { Mycontext } from './MyContext'
+import { Mycontext  } from './MyContext'
+import {RingLoader} from "react-spinners"
 export default function ChatWindow() {
   const {prompt , setPrompt , reply , setReply , currentThreadId } = useContext(Mycontext)
-
+  let [loading, setLoading] = useState(false);
   const getReply = async ()=>{
-
+    setLoading(true)
     const options = {
       method : "POST",
       headers: {
@@ -21,7 +22,10 @@ export default function ChatWindow() {
 
     try {
       const  res = await fetch("http://localhost:8080/api/chat" , options)
-      console.log(res)
+      const reply = await res.json()
+      console.log(reply)
+      setReply(res.Reply)
+      setLoading(false)
     } catch (error) {
       console.log("err: ", error)
     }
@@ -35,11 +39,13 @@ export default function ChatWindow() {
       <div className='Chat'>
            <Chat></Chat>
       </div>
+      <RingLoader color='white' loading={loading} ></RingLoader>
       <div className='Input'>
            <div className='UserInput'>
               <i class="fa-solid fa-plus"></i>
               <input id='userPrompt' placeholder='Ask anything' type='text'
               value={prompt} onChange={(e) => setPrompt(e.target.value) }
+              onKeyDown={(e)=> e.key === "Enter" ? getReply() : "" }
               ></input>
               {/* <i class="fa-solid fa-microphone microphone"></i> */}
               <button className='button' onClick={getReply}><i class="fa-regular fa-paper-plane send"></i></button>

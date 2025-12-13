@@ -20,6 +20,8 @@
 
 .ChatWindow{
     width: 100% ;
+    display: flex;
+    flex-direction: column;
 }
 .Input{
     display: flex;
@@ -34,7 +36,6 @@
     align-items: center;
      padding: 13px ;
      width: 600px ;
-     
      background-color: #303030;
 
 }
@@ -77,4 +78,8 @@ input:focus{
 }
 .UserNote u{
     cursor: pointer;
+}
+
+.Chat{
+    flex: 1 ;
 }

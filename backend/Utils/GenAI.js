@@ -1,41 +1,57 @@
 import "dotenv/config"
 
-export const responseByAI = async(message)=> {
-     try {
-     console.log("1🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹");
+export const responseByAI = async (message) => {
+  try {
 
-    const model = "gemini-2.0-flash" 
-    //  const prompt = "Joke related to Computer science";
+    const model = "gemini-2.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GOOGLE_GEMINI_KEY}`;
-   
-    const Options = {
-      method : "POST",
+
+    const options = {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        contents : [{
-          parts: [{
-            text:message
-          }]
-      }]
-      })
+        contents: [
+          {
+            parts: [{ text: message }],
+          },
+        ],
+      }),
+    };
+
+    const result = await fetch(url, options);
+    console.log("2🌹 response status:", result.status);
+
+    // ✅ HANDLE NON-200 STATUS (429, 400, etc.)
+    if (!result.ok) {
+      const errorData = await result.json();
+      console.error("Gemini API error:", errorData);
+
+      if (result.status === 429) {
+        return "⚠️ AI is busy (rate limited). Please try again in a moment.";
+      }
+
+      return "⚠️ AI service error. Please try again.";
     }
-  
-    const result = await fetch(url , Options)
-    console.log("2🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹");
-    console.log(result)
-    const data = await result.json() 
-    console.log("3🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹");
-    const Final = (data.candidates[0].content.parts[0].text)
-    console.log(Final)
-    console.log("4🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹");
-    // res.status(200).send(Final)
-    return Final
-    
+
+    const data = await result.json();
+
+    // ✅ SAFE EXTRACTION
+    const text =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!text) {
+      console.error("VVGPT returned no text");
+      return "⚠️ AI could not generate a response.";
+    }
+
+    return text;
+
   } catch (error) {
     console.error("Error generating content:", error);
+    return "⚠️ AI service is currently unavailable.";
   }
-}
+};
 
 export default { responseByAI };
