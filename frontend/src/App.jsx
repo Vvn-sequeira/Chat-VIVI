@@ -10,11 +10,17 @@ function App() {
   const [prompt , setPrompt] = useState("")
   const [reply , setReply] = useState(null)
   const [currentThreadId , setCurrentThreadId] = useState(uuidv1())
+  const [prevChats , setPrevChats] = useState([])
+  const [newChat , setNewChat] = useState(false)
+  const [Open , setOpen] = useState(true)
 
   const ProviderValues = {
     prompt , setPrompt ,
     reply , setReply ,
-    currentThreadId , setCurrentThreadId
+    currentThreadId , setCurrentThreadId,
+    newChat , setNewChat ,
+    prevChats , setPrevChats ,
+    Open , setOpen
   }; // Passing Values 
 
   return (

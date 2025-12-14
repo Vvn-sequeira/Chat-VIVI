@@ -1,14 +1,16 @@
 import React from 'react'
 import "./Sidebar.css"
+import { useContext } from 'react'
+import { Mycontext } from './MyContext'
 export default function Sidebar() {
-
+ const {Open , setOpen} = useContext(Mycontext )
   const items = Array.from({length:20})
   return (
-    <div className='Sidebar' style={{width:"380px" }}>
+    <div className={Open ? "Sidebar" : "NONE"} style={{width:"380px" }}>
       {/* Top bar */}
           <div style={{display:"flex" , justifyContent:"space-between" , padding:"16px" , alignItems:"center"}}>
             <img src='src/assets/ChatGPT.png' style={{width:"45px" , marginLeft:"-12px" }}></img>
-            <i class="fa-solid fa-xmark" style={{fontSize:"19px "}} ></i>
+            <i onClick={()=>setOpen(false)} class="fa-solid fa-xmark" style={{fontSize:"19px "}} ></i>
           </div>
       {/* Nav for Side bar   */}
            <nav className='NavSidebar'>

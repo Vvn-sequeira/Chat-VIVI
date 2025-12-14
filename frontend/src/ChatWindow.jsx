@@ -4,7 +4,7 @@ import Chat from "./Chat"
 import { Mycontext  } from './MyContext'
 import {RingLoader} from "react-spinners"
 export default function ChatWindow() {
-  const {prompt , setPrompt , reply , setReply , currentThreadId } = useContext(Mycontext)
+  const {prompt , setPrompt , reply , setReply , currentThreadId , newChat , Open , setOpen} = useContext(Mycontext)
   let [loading, setLoading] = useState(false);
   const getReply = async ()=>{
     setLoading(true)
@@ -31,12 +31,14 @@ export default function ChatWindow() {
     }
   }
   return (
-    <div className='ChatWindow'>
+    <div className='ChatWindow' style={{height:"100vh"}}>
+      
       <div className='Navbar'>
+        <i onClick={()=> setOpen(true)} className={Open ? "NONE" : "fa-solid fa-left-right"}></i>
         <a href='#'>Vv-GPT <span style={{opacity: 0.3 , fontSize: "12px"}}>5.5</span> <i  style={{opacity: 0.4}} class="fa-solid fa-arrow-down"></i> </a>
         <a href='#'><i class="fa-solid fa-user"></i></a>
       </div>
-      <div className='Chat'>
+      <div className= {newChat ? "NewChat" : "Chat"}>
            <Chat></Chat>
       </div>
       <RingLoader color='white' loading={loading} ></RingLoader>
@@ -50,7 +52,7 @@ export default function ChatWindow() {
               {/* <i class="fa-solid fa-microphone microphone"></i> */}
               <button className='button' onClick={getReply}><i class="fa-regular fa-paper-plane send"></i></button>
            </div>
-           <div className='UserNote'>
+           <div className= {newChat ? "NONE" : "UserNote"}>
             <p><b>Vv-GPT can make mistakes.</b> Check important info. See <u>Cookie Preferences.</u></p>
            </div>
       </div>

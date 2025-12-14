@@ -3,6 +3,15 @@
     height: 100vh ;
     background-color: #181818;
     width: 500px ;
+    transition: left 0.3s ease; 
+}
+@media  (max-width:999px ) {
+.Sidebar{
+    position: absolute;
+    height: 100vh ;
+    background-color: #181818;
+    width: 500px ;
+}
 }
 
 .NavSidebar{
@@ -104,4 +113,8 @@
 }
 .User-info small {
     opacity: 0.6;
+}
+
+.NONE{
+    left: -10px ;
 }

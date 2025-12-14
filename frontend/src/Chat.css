@@ -1,0 +1,49 @@
+
+.NewChatDIV{
+    font-size: 16px;
+   
+}
+.NewChatDIV h1{
+     font-family:'Times New Roman', Times, serif;
+}
+
+.Chats{
+    /* border: 2px solid red ; */
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    max-height:80vh  ;
+    overflow-x: auto;
+    
+}
+@media (min-width:1000px) and (max-width: 1345px ) {
+    .Chats{
+         width: 80%;
+    }
+}
+@media  (max-width:999px ) {
+    .Chats{
+         width: 98%;
+    }
+}
+.userDiv{
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+}
+.userMessage{
+    background-color: rgba(78, 70, 70, 0.362);
+    padding: 13px ;
+    border-radius: 23px ;
+    max-width: 70% ;
+    width: fit-content;
+}
+
+hr{
+    margin: 22px 0 ;
+    width: 96%;
+    opacity: 0.3;
+}
