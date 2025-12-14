@@ -1,12 +1,13 @@
-import React, { useContext , useState } from 'react'
+import React, { useContext , useState , useEffect } from 'react'
 import "./ChatWindo.css"
 import Chat from "./Chat"
 import { Mycontext  } from './MyContext'
 import {RingLoader} from "react-spinners"
 export default function ChatWindow() {
-  const {prompt , setPrompt , reply , setReply , currentThreadId , newChat , Open , setOpen} = useContext(Mycontext)
+  const {prompt , setPrompt , reply , setReply , currentThreadId , newChat , Open , setOpen , prevChats , setPrevChats , setNewChat} = useContext(Mycontext)
   let [loading, setLoading] = useState(false);
   const getReply = async ()=>{
+    setNewChat(false)
     setLoading(true)
     const options = {
       method : "POST",
@@ -22,14 +23,37 @@ export default function ChatWindow() {
 
     try {
       const  res = await fetch("http://localhost:8080/api/chat" , options)
-      const reply = await res.json()
-      console.log(reply)
-      setReply(res.Reply)
+      const replyy = await res.json()
+      console.log("Reply after Json formate : ", replyy.Reply)
+     
+      setReply(replyy.Reply)
       setLoading(false)
     } catch (error) {
       console.log("err: ", error)
     }
   }
+   
+  // Append new messages 
+  useEffect( () => {
+     if(prompt && reply){
+        setPrevChats(prevCht=> (
+          [
+            ...prevCht , 
+          {
+            role: "user",
+            content: prompt
+          },
+          {
+            role : "assistant",
+            content : reply
+          }
+        ]
+        ))
+     }
+
+     setPrompt("")
+  }, [reply])
+
   return (
     <div className='ChatWindow' style={{height:"100vh"}}>
       

@@ -39,6 +39,25 @@
      background-color: #303030;
 
 }
+@media (max-width:638px) {
+    .Input{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.UserInput{
+    border-radius: 63px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     padding: 13px ;
+     width: 90% ;
+     background-color: #303030;
+
+}
+
+}
 
 #userPrompt{
     display: flex;
@@ -94,4 +113,10 @@ input:focus{
 }
 .NONE{
     display: none ;
+}
+
+@media (max-width:668px) {
+    .UserNote p {
+    font-size: 10px ;
+}
 }

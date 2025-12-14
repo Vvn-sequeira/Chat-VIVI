@@ -47,3 +47,38 @@ hr{
     width: 96%;
     opacity: 0.3;
 }
+
+.Chats::-webkit-scrollbar {
+  display: none;
+}
+
+.GPTMessage pre {
+  background: #0d1117;
+  padding: 16px;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+
+.GPTMessage code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 14px;
+}
+
+
+.hljs .hljs-keyword,
+.hljs .hljs-selector-tag {
+  color: #ff7b72 !important;
+}
+
+.hljs .hljs-string {
+  color: #7ee787 !important;
+}
+
+.hljs .hljs-comment {
+  color: #8b949e !important;
+  font-style: italic;
+}
+.GPTMessage {
+  line-height: 1.8;
+  white-space: normal;
+}

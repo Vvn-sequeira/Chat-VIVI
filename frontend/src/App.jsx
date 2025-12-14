@@ -11,7 +11,7 @@ function App() {
   const [reply , setReply] = useState(null)
   const [currentThreadId , setCurrentThreadId] = useState(uuidv1())
   const [prevChats , setPrevChats] = useState([])
-  const [newChat , setNewChat] = useState(false)
+  const [newChat , setNewChat] = useState(true)
   const [Open , setOpen] = useState(true)
 
   const ProviderValues = {

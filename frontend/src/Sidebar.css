@@ -1,5 +1,6 @@
 
 .Sidebar{
+    z-index: 1000;
     height: 100vh ;
     background-color: #181818;
     width: 500px ;
@@ -7,10 +8,11 @@
 }
 @media  (max-width:999px ) {
 .Sidebar{
+    z-index: 1000;
     position: absolute;
     height: 100vh ;
     background-color: #181818;
-    width: 500px ;
+    width: 200px ;
 }
 }
 
