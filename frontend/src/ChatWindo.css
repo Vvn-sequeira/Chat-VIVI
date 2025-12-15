@@ -120,3 +120,34 @@ input:focus{
     font-size: 10px ;
 }
 }
+
+.Loader{
+    position: absolute;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    left: 45% ;
+    top: 78%  ;
+    bottom: 0;
+}
+
+@media (min-width:992px) {
+.Loader{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 59% ;
+    top: 78%  ;
+    bottom: 0;
+}
+}
+@media (min-width:1319px) {
+.Loader{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 57% ;
+    top: 78%  ;
+    bottom: 0;
+}
+}

@@ -65,7 +65,9 @@ export default function ChatWindow() {
       <div className= {newChat ? "NewChat" : "Chat"}>
            <Chat></Chat>
       </div>
-      <RingLoader color='white' loading={loading} ></RingLoader>
+       <div className='Loader'>
+          <RingLoader color='white' loading={loading} ></RingLoader>
+      </div>
       <div className='Input'>
            <div className='UserInput'>
               <i class="fa-solid fa-plus"></i>
