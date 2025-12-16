@@ -3,6 +3,7 @@ import "./ChatWindo.css"
 import Chat from "./Chat"
 import { Mycontext  } from './MyContext'
 import {RingLoader} from "react-spinners"
+const API_URL = import.meta.env.VITE_API_URL;
 export default function ChatWindow() {
   const {prompt , setPrompt , reply , setReply , currentThreadId , newChat , Open , setOpen , prevChats , setPrevChats , setNewChat} = useContext(Mycontext)
   let [loading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ export default function ChatWindow() {
     console.log(options)
 
     try {
-      const  res = await fetch("http://localhost:8080/api/chat" , options)
+      const  res = await fetch(`${API_URL}/api/chat` , options)
       const replyy = await res.json()
       console.log("Reply after Json formate : ", replyy.Reply)
      
