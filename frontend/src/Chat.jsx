@@ -14,6 +14,13 @@ export default function Chat() {
   console.log("This is my PrevChats after getting set  ", prevChats);
 
  useEffect(()=>{
+
+  if(reply === null){
+    setLatestReply(null)
+    return;
+  }
+
+
    if(!prevChats?.length) return; 
 
    const content = reply.split(" ") // individual words 
@@ -38,7 +45,7 @@ export default function Chat() {
         </div>
       )}
       <div className="Chats">
-        {prevChats?.slice(0 , -1).map((chat, idx) => (
+        {  prevChats?.slice(0 , -1).map((chat, idx) => (
           <div className="Aireply" key={idx}>
             <div className={chat.role === "user" ? "userDiv" : "GPTdiv"}>
               {chat.role === "user" ? (
@@ -59,10 +66,18 @@ export default function Chat() {
         )}
 
         {
-          prevChats.length > 0 && latestReply !== null && 
+           prevChats.length > 0 && latestReply !== null && 
           <div className="GPTMessage" key={"Typeing"}>
              <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                     {latestReply}
+              </ReactMarkdown>
+           </div>
+        }
+        {
+           prevChats.length > 0 && latestReply === null && 
+          <div className="GPTMessage" key={"NON-Typeing"}>
+             <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                    {prevChats[prevChats.length-1].content}
               </ReactMarkdown>
            </div>
         }

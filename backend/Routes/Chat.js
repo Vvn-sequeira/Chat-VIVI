@@ -36,14 +36,16 @@ router.get("/thread/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const Chat = await Thread.findById(id)
-    if (!Chat){
-        res.status(404).json({err : "Thread is not found ...."})
+    const chat = await Thread.findOne({ threadId: id });
+
+    if (!chat) {
+      return res.status(404).json({ error: "Thread not found" });
     }
-    res.json(Chat.messages)
+
+    return res.json(chat.messages);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: "Failed to Fetch the Chat ..." });
+    console.error(error);
+    return res.status(500).json({ error: "Failed to fetch the chat" });
   }
 });
 

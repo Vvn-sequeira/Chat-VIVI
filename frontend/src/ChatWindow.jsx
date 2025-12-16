@@ -54,11 +54,14 @@ export default function ChatWindow() {
      setPrompt("")
   }, [reply])
 
+  const CloseSideBar = ()=> {
+    //  setOpen(false) 
+  }
   return (
-    <div className='ChatWindow' style={{height:"100vh"}}>
+    <div  onClick={CloseSideBar} className='ChatWindow' style={{height:"100vh" }}>
       
       <div className='Navbar'>
-        <i onClick={()=> setOpen(true)} className={Open ? "NONE" : "fa-solid fa-left-right"}></i>
+        <i  onClick={()=> setOpen(true)} className={Open ? "NONE" : "fa-solid fa-left-right"}></i>
         <a href='#'>Vv-GPT <span style={{opacity: 0.3 , fontSize: "12px"}}>5.5</span> <i  style={{opacity: 0.4}} class="fa-solid fa-arrow-down"></i> </a>
         <a href='#'><i class="fa-solid fa-user"></i></a>
       </div>

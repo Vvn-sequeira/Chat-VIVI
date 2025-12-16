@@ -3,12 +3,12 @@ import "./Sidebar.css"
 import { useContext , useState } from 'react'
 import { Mycontext } from './MyContext'
 import { useEffect } from 'react'
-
+import { v1 as uuidv1 } from 'uuid'
 
 export default function Sidebar() {
 
 
- const {Open , setOpen,currentThreadId} = useContext(Mycontext )
+ const {Open , setOpen,currentThreadId , setNewChat , setPrompt , setReply ,setCurrentThreadId , setPrevChats } = useContext(Mycontext )
  const [item , setItem] = useState()
   const items = Array.from({length:20})
 
@@ -27,6 +27,42 @@ export default function Sidebar() {
    getAllThread()
   },[currentThreadId])
 
+
+  const CreateANewChat = ()=> {
+    setNewChat(true)
+    setPrompt("")
+    setReply(null)
+    setCurrentThreadId(uuidv1())
+    setPrevChats([])
+  }
+
+  const changeThread = async(NewId)=> {
+   setCurrentThreadId(NewId)
+
+   try {
+     const res = await fetch(`http://localhost:8080/api/thread/${NewId}`)
+     const response = await res.json() 
+     console.log(response)
+     setPrevChats(response)
+     setNewChat(false)
+     setReply(null)
+   } catch (error) {
+     console.log(error)
+   }
+  } 
+
+  const DeleteThread = async(id)=> {
+     try {
+      const deletedThread = await fetch(`http://localhost:8080/api/thread/${id}` , {method: "DELETE"})
+      alert("Thread Deleted!!")
+
+     // re-rednder 
+     setItem(prev => prev.filter(thread=> thread.threadId !== id))
+    
+     } catch (error) {
+      console.log(error)
+     }
+  }
   return (
     <div className={Open ? "Sidebar" : "NONE"} style={{width:"380px" }}>
       {/* Top bar */}
@@ -36,7 +72,7 @@ export default function Sidebar() {
           </div>
       {/* Nav for Side bar   */}
            <nav className='NavSidebar'>
-              <a href='#'><i class="fa-solid fa-pen-to-square"></i> New chat</a>
+              <a onClick={CreateANewChat} href='#'><i class="fa-solid fa-pen-to-square"></i> New chat</a>
               <a href='#'><i class="fa-solid fa-magnifying-glass"></i> Search</a>
               <a href='#'><i class="fa-solid fa-photo-film"></i> Library </a>
            </nav>
@@ -52,7 +88,7 @@ export default function Sidebar() {
              <div className='HistoryChats'>
                 {
                   item?.map((thread , index)=> (
-                      <a key={thread.threadId} href='#'>{(thread.title).slice(0 , 30)} <i class="fa-solid fa-ellipsis"></i> </a>
+                      <a onClick={()=> changeThread(thread.threadId)} key={thread.threadId} href='#'>{(thread.title).slice(0 , 30)} <i onClick={ (e)=>{  e.stopPropagation() ; DeleteThread(thread.threadId)}} class="fa-solid fa-ellipsis"></i> </a>
                   ))
                 }
               </div>
