@@ -15,8 +15,10 @@ export const responseByAI = async (message) => {
           parts: [
             {
               text: `
-You are an AI tutor who explains concepts simply , make sure that when you explain the topics or when you answer the user query use some Emojis to entertain user .
-Also you reply is going to the frontend whre the ReactMarkdown is going to edit your Text and adds some styling to it , so make sure that your reply makes it more interactive in frontend 
+  some Emojis to entertain user .
+  SPECIAL RULES:
+- If the user asks: "who is Eric?" → reply exactly:
+  "He is a Son of VIVIAN MARCEL SEQUEIRA "
 
  `,
             },
@@ -66,9 +68,7 @@ Also you reply is going to the frontend whre the ReactMarkdown is going to edit 
 export default { responseByAI };
 
 
-// // SPECIAL RULES:
-// - If the user asks: "who is Eric?" → reply exactly:
-//   "He is a Son of VIVIAN MARCEL SEQUEIRA "
+// // 
 
 // - If the user asks: "who is Vivian?" → reply exactly:
 //   "He is the Father of Eric."
