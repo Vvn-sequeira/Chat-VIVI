@@ -2,6 +2,7 @@ import express from "express";
 import Thread from "../Models/Thread.js";
 import { Content } from "openai/resources/containers/files/content.js";
 import { responseByAI } from "../Utils/GenAI.js";
+import { resImg } from "../Utils/Image.js";
 import mongoose from "mongoose";
 const router = express.Router();
 
@@ -49,11 +50,12 @@ router.get("/thread/:id", async (req, res) => {
   }
 });
 
-// Delete the Thread 
+// Delete the Thread
 router.delete("/thread/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const cleanId = typeof id === "string" && id.startsWith(":") ? id.slice(1) : id;
+    const cleanId =
+      typeof id === "string" && id.startsWith(":") ? id.slice(1) : id;
 
     let deleted = null;
     if (mongoose.Types.ObjectId.isValid(cleanId)) {
@@ -70,49 +72,58 @@ router.delete("/thread/:id", async (req, res) => {
   }
 });
 
-router.post("/chat" , async(req , res )=> {
-   const {threadId , message} = req.body
+router.post("/chat", async (req, res) => {
+  const { threadId, message } = req.body;
   //  console.log("ID: " , threadId , "Prompt: ", message)
 
-   if(!threadId || !message){
-    return  res.status(500).json({err: "missing required fields"})
-   }
-   try {
-    let threadd = await Thread.findOne({threadId})
-    if(!threadd){
+  if (!threadId || !message) {
+    return res.status(500).json({ err: "missing required fields" });
+  }
+  try {
+    let threadd = await Thread.findOne({ threadId });
+    if (!threadd) {
       //  Create a NEW thread
-        threadd = new Thread({
+      threadd = new Thread({
         threadId,
         title: message,
-        messages: [{
-          role: "user",
-          content: message
-        }]
-      })
-    }else{
+        messages: [
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+      });
+    } else {
       threadd.messages.push({
         role: "user",
-        content: message
-      })
+        content: message,
+      });
     }
-    const assistentReply = await responseByAI(message)
-    console.log("assistant reply: " , assistentReply);
-    
+    const assistentReply = await responseByAI(message);
+    console.log("assistant reply: ", assistentReply);
+
     threadd.messages.push({
       role: "assistant",
-      content: assistentReply
-    })
+      content: assistentReply,
+    });
     threadd.updatedAt = new Date();
-    await threadd.save()
+    await threadd.save();
 
-    res.json({Reply : assistentReply})
-    
-   } catch (error) {
+    res.json({ Reply: assistentReply });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ err: "Something went Wrong!!" });
+  }
+});
 
-    console.log(error)
-    res.status(500).json({err : "Something went Wrong!!"})
-
-   }
-})
+router.post("/getImg", async(req, res) => {
+  try {
+    console.log("Hello hi",req.body);
+    let resByImg = await resImg(req.body);
+    console.log(resByImg.data);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export default router;

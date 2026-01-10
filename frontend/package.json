@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bootstrap": "^5.3.8",
     "react": "^19.2.0",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
     "react-markdown": "^10.1.0",
     "react-spinners": "^0.17.0",
     "rehype-highlight": "^7.0.2",
+    "styled-components": "^6.3.1",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

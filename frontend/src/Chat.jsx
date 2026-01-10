@@ -9,9 +9,9 @@ import "./Chat.css";
 
 export default function Chat() {
 
-  const { newChat, prevChats , reply } = useContext(Mycontext);
+  const { newChat, prevChats , reply ,toggle , setToggle } = useContext(Mycontext);
   const [latestReply , setLatestReply] = useState(null)
-  console.log("This is my PrevChats after getting set  ", prevChats);
+  // console.log("This is my PrevChats after getting set  ", prevChats);
 
  useEffect(()=>{
 
@@ -45,9 +45,9 @@ export default function Chat() {
         </div>
       )}
       <div className="Chats">
-        {  prevChats?.slice(0 , -1).map((chat, idx) => (
-          <div className="Aireply" key={idx}>
-            <div className={chat.role === "user" ? "userDiv" : "GPTdiv"}>
+        {  prevChats?.slice(0 , -1).map((chat, idx) => (  // the last(latest) reply will be ignonred 
+           <div className="Aireply" key={idx}>
+            <div className={chat.role === "user" ? "userDiv" : "GPTdiv"}> 
               {chat.role === "user" ? (
                 <p className="userMessage">{chat.content}</p>
               ) : (
@@ -65,7 +65,7 @@ export default function Chat() {
 
         )}
 
-        {
+        { // 
            prevChats.length > 0 && latestReply !== null && 
           <div className="GPTMessage" key={"Typeing"}>
              <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
@@ -81,6 +81,10 @@ export default function Chat() {
               </ReactMarkdown>
            </div>
         }
+        {
+
+        }
+
       </div>
     </div>
   );
