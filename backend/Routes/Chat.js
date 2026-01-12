@@ -116,13 +116,25 @@ router.post("/chat", async (req, res) => {
   }
 });
 
-router.post("/getImg", async(req, res) => {
+router.post("/getImg", async (req, res) => {
   try {
-    console.log("Hello hi",req.body);
-    let resByImg = await resImg(req.body);
-    console.log(resByImg.data);
+
+    let {promptt} = req.body
+    console.log(promptt,"requesting ")
+    const resByImg = await resImg(promptt);
+
+    const imageUrl = resByImg?.data?.[0]?.url;
+    console.log("recived the response!")
+    
+    if (!imageUrl) {
+      return res.status(500).json({ error: "Image URL not found" });
+    }
+    console.log(imageUrl)
+    res.json({ imageUrl });
+
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ error: "Image generation failed" });
   }
 });
 

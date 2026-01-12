@@ -8,6 +8,7 @@ import {v1 as uuidv1} from "uuid"
 
 function App() {
   const [prompt , setPrompt] = useState("")
+  const [ImgPrompt , setImgPrompt] = useState([])
   const [reply , setReply] = useState(null)
   const [currentThreadId , setCurrentThreadId] = useState(uuidv1())
   const [prevChats , setPrevChats] = useState([])
@@ -16,6 +17,7 @@ function App() {
   const [Open , setOpen] = useState(true)
   const [toggle , setToggle] = useState(0)
   const [imgURL , setImgURL] = useState(null)
+  const [getUrl , setUrl] = useState([])
 
 
   const ProviderValues = {
@@ -27,7 +29,10 @@ function App() {
     prevChats , setPrevChats ,
     Open , setOpen ,
     toggle , setToggle,
-    imgURL , setImgURL
+    imgURL , setImgURL,
+    getUrl , setUrl,
+    ImgPrompt , setImgPrompt
+
   }; // Passing Values 
 
   return (

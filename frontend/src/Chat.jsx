@@ -51,7 +51,7 @@ export default function Chat() {
               {chat.role === "user" ? (
                 <p className="userMessage">{chat.content}</p>
               ) : (
-                <div className="GPTMessage">
+                <div className="GPTMessage"> 
                   <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
                     {chat.content}
                   </ReactMarkdown>
@@ -59,10 +59,7 @@ export default function Chat() {
               )}
             </div>
           </div>
-
-    
         )
-
         )}
 
         { // 

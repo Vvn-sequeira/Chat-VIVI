@@ -7,7 +7,7 @@ import { Mycontext  } from './MyContext'
 import {RingLoader} from "react-spinners"
 const API_URL = import.meta.env.VITE_API_URL;
 export default function ChatWindow() {
-  const {newImg, setNewImg, prompt , setPrompt , reply , setReply , currentThreadId , newChat , Open , setOpen , prevChats , setPrevChats , setNewChat ,toggle , setToggle} = useContext(Mycontext)
+  const {ImgPrompt , setImgPrompt,getUrl , setUrl, imgURL , setImgURL , newImg, setNewImg, prompt , setPrompt , reply , setReply , currentThreadId , newChat , Open , setOpen , prevChats , setPrevChats , setNewChat ,toggle , setToggle} = useContext(Mycontext)
   let [loading, setLoading] = useState(false);
 
   const getReply = async ()=>{
@@ -39,19 +39,30 @@ export default function ChatWindow() {
       console.log("err: ", error)
     }
   }
+
   const GetImg  = async()=>{
     setNewImg(false)
     setLoading(true)
+     const options = {
+      method : "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        promptt : prompt
+      })
+    };
     try {
-      const  res = await fetch(`${API_URL}/api/getImg` , prompt)
-      const replyy = await res.json()
-      console.log("Reply after Json formate : ", replyy)
-
+      setImgPrompt(prev => [...prev , prompt])
+      let res = await fetch(`${API_URL}/api/getImg` , options)
+      const reply = await res.json()
+      console.log("Reply after Json formate : ", reply.imageUrl)
+      setUrl( prev => [ ...prev , reply.imageUrl] )
       setLoading(false)
       
-
     } catch (error) {
       console.log("err: ", error)
+      alert("somthing went wrong !")
     }
 
   }
