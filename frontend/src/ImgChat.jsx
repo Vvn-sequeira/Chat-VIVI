@@ -59,7 +59,7 @@ export default function ImgChat() {
                 {" "}
                 {ImgPrompt ? (
                   ImgPrompt.map((prompt, idx) => (
-                    <div className="userMessage">{prompt}</div>
+                    <div className="userMessage" key={idx}>{prompt}</div>
                   ))
                 ) : (
                   <div></div>
@@ -69,12 +69,12 @@ export default function ImgChat() {
                 {" "}
                 {getUrl.length !== 0 ? (
                   getUrl.map((Url, idx) => (
-                    <div>
+                    <div key={idx}>
                       <div className="userMessage">
-                        heres is your requested image!
+                        heres is your requested image! 
                       </div>
                       <img
-                        style={{ backgroundColor:"#303030" , padding:"30px" , marginTop:"12px "}}
+                        style={{ backgroundColor:"#303030" , padding:"30px" , marginTop:"12px " , width:"500px" , height:"auto "}}
                         src={Url}
                         alt=" Something went Wrong while Generating the Image please try again later!"
                       />
@@ -85,7 +85,7 @@ export default function ImgChat() {
                 )}
               </div>
           </div>
-         
+        
       </div>
   );
 }

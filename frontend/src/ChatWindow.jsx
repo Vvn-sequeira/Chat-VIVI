@@ -57,7 +57,12 @@ export default function ChatWindow() {
       let res = await fetch(`${API_URL}/api/getImg` , options)
       const reply = await res.json()
       console.log("Reply after Json formate : ", reply.imageUrl)
-      setUrl( prev => [ ...prev , reply.imageUrl] )
+      const ress = await fetch(reply.imageUrl)
+      const blob = await ress.blob() 
+      const objectURL = URL.createObjectURL(blob);
+      console.log(ress , objectURL , reply.imageUrl)
+      setUrl( prev => [ ...prev , objectURL] )
+      // console.log(getUrl)
       setLoading(false)
       
     } catch (error) {

@@ -9,9 +9,9 @@ export const  resImg = async(User_prompt)=>{
 			// prompt: "Astronaut riding a horse on Mars, cinematic lighting, sci-fi concept art, highly detailed", 
 			prompt: User_prompt, 
 								
-			height: 520, 
+			height: 1152, 
 								
-			width: 520, 
+			width: 1024, 
 								
 			num_inference_steps: 9, 
 								
