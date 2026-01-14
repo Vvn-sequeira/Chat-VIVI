@@ -69,11 +69,12 @@ export default function ImgChat() {
                 {" "}
                 {getUrl.length !== 0 ? (
                   getUrl.map((Url, idx) => (
-                    <div key={idx}>
+                    <div className="ImgDisplay" key={idx}>
                       <div className="userMessage">
                         heres is your requested image! 
                       </div>
                       <img
+                        
                         style={{ backgroundColor:"#303030" , padding:"30px" , marginTop:"12px " , width:"500px" , height:"auto "}}
                         src={Url}
                         alt=" Something went Wrong while Generating the Image please try again later!"
